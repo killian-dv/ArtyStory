@@ -6,5 +6,3 @@ Chatbot conversationnel qui permet de dialoguer avec une figure emblématique de
 - Vue.js
 - Vite.js
 - API de ChatGPT
-
-
