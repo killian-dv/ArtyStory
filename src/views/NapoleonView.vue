@@ -1,6 +1,7 @@
 <script>
 import { ref, nextTick } from "vue";
 import axios from "axios";
+// import TypingIndicator from "../components/TypingIndicator.vue";
 
 const openaiApiKey = import.meta.env.VITE_OPENAI_API_KEY ;
 
@@ -8,6 +9,7 @@ export default {
   setup() {
     const messageInput = ref("");
     const messageInputBeforeDelete = ref("");
+    // const TypingIndicator = ref(null);
     const messages = ref([
       {
         role: "bot",
@@ -28,6 +30,9 @@ export default {
       messageInputBeforeDelete.value = messageInput.value;
       messageInput.value = "";
       try {
+        // showTypingIndicator.value = true; // afficher l'indicateur de saisie en cours
+        // messageInput.disabled = true; // désactiver l'input de saisie de l'utilisateur
+        // await nextTick(); // attendre la mise à jour de l'affichage
         const openaiResponse = await axios.post(
           "https://api.openai.com/v1/chat/completions",
           {
@@ -50,7 +55,7 @@ export default {
         );
         // console.log(messageInput.value);
         // console.log(openaiResponse)
-
+        // showTypingIndicator.value = false; // cacher l'indicateur de saisie en cours
         const botMessage = {
           role: "bot",
           content: `${openaiResponse.data.choices[0].message.content}`,
@@ -62,6 +67,7 @@ export default {
       }
       await nextTick();
       messageList.value.scrollTop = messageList.value.scrollHeight;
+      // messageInput.disabled = false; // ré-activer l'input de saisie de l'utilisateur
     };
 
     return {
@@ -85,6 +91,7 @@ export default {
           <div class="sc-message--content" :class="message.role === 'bot' ? 'received' : 'sent'">
             <div v-if="message.role === 'bot' || message.role === 'system'" class="sc-message--avatar"></div>
             <div class="sc-message--file">
+              <!-- <TypingIndicator v-if="showTypingIndicator && message.role === 'bot'" :messageColors="{backgroundColor: '#F3F3F3', color: '#333333'}"/> -->
               <p>{{ message.content }}</p>
             </div>
           </div>

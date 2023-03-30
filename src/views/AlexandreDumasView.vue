@@ -11,7 +11,7 @@ export default {
     const messages = ref([
       {
         role: "bot",
-        content: "Je suis Alexandre Dumas. Je suis ravi de prendre le temps de discuter avec vous.",
+        content: "Je suis Alexandre Dumas. Je suis ravi de prendre le temps de discuter avec vous. Je vous mets en garde, il m'arrive parfois d'affabuler. #IA",
         timestamp: Date.now(),
       },
     ]);
