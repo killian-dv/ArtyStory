@@ -1,5 +1,7 @@
 # ArtyStory
-![alt text](/src/assets/preview.png)
+<p align="center">
+  <img src="./src/assets/preview.png">
+</p>
 ArtyStory est un Chatbot conversationnel qui permet de dialoguer avec une figure emblématique de l'Histoire. L’utilisateur peut poser toutes les questions de son choix. Cela est possible grâce à la puissance de ChatGPT.
 
 ## Configuration
