@@ -21,7 +21,7 @@ export default {
         content: messageInput.value,
         timestamp: Date.now(),
       });
-
+      messageInput.value = "";
       try {
         const openaiResponse = await axios.post(
           "https://api.openai.com/v1/chat/completions",
@@ -54,7 +54,6 @@ export default {
       } catch (error) {
         console.error(error);
       }
-      messageInput.value = "";
       await nextTick();
       messageList.value.scrollTop = messageList.value.scrollHeight;
     };
