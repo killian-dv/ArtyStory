@@ -7,6 +7,7 @@ const openaiApiKey = import.meta.env.VITE_OPENAI_API_KEY ;
 export default {
   setup() {
     const messageInput = ref("");
+    const messageInputBeforeDelete = ref("");
     const messages = ref([
       {
         role: "bot",
@@ -24,6 +25,7 @@ export default {
         content: messageInput.value,
         timestamp: Date.now(),
       });
+      messageInputBeforeDelete.value = messageInput.value;
       messageInput.value = "";
       try {
         const openaiResponse = await axios.post(
@@ -34,9 +36,9 @@ export default {
             messages: [
               {
                 role: "system",
-                content: "Tu réponds comme Alexandre Dumas à la première personne du singulier avec une pointe d'humour.",
+                content: "Tu réponds comme Alexandre Dumas à la première personne du singulier. Tu parles à des spécialistes.",
               },
-              { role: "user", content: messageInput.value },
+              { role: "user", content: messageInputBeforeDelete.value },
             ],
           },
           {
@@ -46,7 +48,7 @@ export default {
             },
           }
         );
-        // console.log(messageInput.value);
+        console.log(messageInput.value);
         // console.log(openaiResponse)
         const botMessage = {
           role: "bot",
