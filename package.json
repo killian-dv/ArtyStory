@@ -1,0 +1,24 @@
+{
+  "name": "artystory",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@vue/reactivity": "^3.2.47",
+    "axios": "^1.3.4",
+    "openai": "^3.2.1",
+    "vue": "^3.2.47",
+    "vue-router": "^4.1.6"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^4.0.0",
+    "dotenv": "^16.0.3",
+    "dotenv-webpack": "^8.0.1",
+    "vite": "^4.1.4",
+    "vite-plugin-env": "^1.0.1"
+  }
+}
