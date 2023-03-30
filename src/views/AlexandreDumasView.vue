@@ -10,12 +10,15 @@ export default {
     const messages = ref([
       {
         role: "bot",
-        content: "Je suis Alexandre Dumas. Quelle est votre question\u00a0?",
+        content: "Je suis Alexandre Dumas. Je suis ravi de prendre le temps de discuter avec vous.",
         timestamp: Date.now(),
       },
     ]);
     const messageList = ref(null);
     const sendMessage = async () => {
+      if (messageInput.value.trim() === "") {
+        return;
+      }
       messages.value.push({
         role: "user",
         content: messageInput.value,
@@ -27,11 +30,11 @@ export default {
           "https://api.openai.com/v1/chat/completions",
           {
             model: "gpt-3.5-turbo",
+            max_tokens: 180,
             messages: [
               {
                 role: "system",
-                content:
-                "Tu réponds à la manière d'Alexandre Dumas à la première personne du singulier. Tu utilises le style d'Alexandre Dumas, tu peux faire de l'humour et tu fais des phrases courtes. Tu es aussi un gourmand.",
+                content: "Tu réponds comme Alexandre Dumas à la première personne du singulier avec une pointe d'humour.",
               },
               { role: "user", content: messageInput.value },
             ],

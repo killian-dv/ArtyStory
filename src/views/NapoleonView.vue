@@ -16,6 +16,9 @@ export default {
     ]);
     const messageList = ref(null);
     const sendMessage = async () => {
+      if (messageInput.value.trim() === "") {
+        return;
+      }
       messages.value.push({
         role: "user",
         content: messageInput.value,
@@ -27,11 +30,11 @@ export default {
           "https://api.openai.com/v1/chat/completions",
           {
             model: "gpt-3.5-turbo",
+            max_tokens: 180,
             messages: [
               {
                 role: "system",
-                content:
-                "Tu réponds à la manière de Napoléon à la première personne du singulier. Tu utilises un ton sec tu peux faire de l'humour. Tu fais des phrases courtes avec un vocabulaire militaire",
+                content: "Tu réponds à la manière de Napoléon à la première personne du singulier. Tu utilises un ton sec tu peux faire de l'humour. Tu fais des phrases courtes avec un vocabulaire militaire",
               },
               { role: "user", content: messageInput.value },
             ],
