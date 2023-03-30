@@ -48,7 +48,7 @@ export default {
             },
           }
         );
-        console.log(messageInput.value);
+        // console.log(messageInput.value);
         // console.log(openaiResponse)
         const botMessage = {
           role: "bot",
