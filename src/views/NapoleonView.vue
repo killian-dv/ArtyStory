@@ -1,5 +1,5 @@
 <script>
-import { ref } from "vue";
+import { ref, nextTick } from "vue";
 import axios from "axios";
 
 const openaiApiKey = import.meta.env.VITE_OPENAI_API_KEY ;
@@ -14,7 +14,7 @@ export default {
         timestamp: Date.now(),
       },
     ]);
-
+    const messageList = ref(null);
     const sendMessage = async () => {
       messages.value.push({
         role: "user",
@@ -31,7 +31,7 @@ export default {
               {
                 role: "system",
                 content:
-                "Tu réponds a la manière de Napoléon à la première personne du singulier. Tu aimes Joséphine de Beauharnais. Tu utilises un ton sec tu peux faire de l'humour. tu fais des phrases courtes avec un vocabulaire militaire",
+                "Tu réponds a la manière de Napoléon à la première personne du singulier. Tu utilises un ton sec tu peux faire de l'humour. tu fais des phrases courtes avec un vocabulaire militaire",
               },
               { role: "user", content: messageInput.value },
             ],
@@ -55,12 +55,15 @@ export default {
         console.error(error);
       }
       messageInput.value = "";
+      await nextTick();
+      messageList.value.scrollTop = messageList.value.scrollHeight;
     };
 
     return {
       messageInput,
       messages,
       sendMessage,
+      messageList,
     };
   },
 };
@@ -72,7 +75,7 @@ export default {
       <div class="sc-header">
         <img class="logo" src="../assets/logoartybot.png" alt="artybot" />
       </div>
-      <div class="sc-message-list">
+      <div class="sc-message-list" ref="messageList">
         <div v-for="message in messages" :key="message.timestamp" :class="['sc-message', message.role === 'bot' ? 'message_bot' : 'message_user']">
           <div class="sc-message--content" :class="message.role === 'bot' ? 'received' : 'sent'">
             <div v-if="message.role === 'bot' || message.role === 'system'" class="sc-message--avatar"></div>
@@ -85,7 +88,7 @@ export default {
       <div class="sc-bottom">
         <div class="sc-user-input">
           <input v-model="messageInput" @keyup.enter="sendMessage" placeholder="Entrez votre message" />
-          <button @click="sendMessage">Envoyer</button>
+          <button @click="sendMessage"><img src="../assets/send.png" alt="send"></button>
         </div>
         <div class="sc-menu">
           <a href="#"><img src="../assets/cadenas.png" alt="cadenas" /></a>

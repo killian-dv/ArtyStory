@@ -133,11 +133,14 @@
 }
 .sc-user-input button {
   border: none;
-  background-color: #345ba5;
   margin: 0.5rem;
   color: white;
+  background-color: transparent;
   border-radius: 10px;
-  padding: 0 1rem;
+  height: 35px;
+}
+.sc-user-input button img {
+  height: 100%;
 }
 .sc-user-input button:hover {
   cursor: pointer;
