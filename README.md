@@ -8,3 +8,6 @@ ArtyStory est un Chatbot conversationnel qui permet de dialoguer avec une figure
 - Vue.js
 - Vite.js
 - API de ChatGPT
+
+## Exemple
+- Avec le personnage d'[Alexandre Dumas](https://histo.artybot.fr/alexandre-dumas).

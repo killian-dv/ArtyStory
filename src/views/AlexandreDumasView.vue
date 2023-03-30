@@ -10,7 +10,7 @@ export default {
     const messages = ref([
       {
         role: "bot",
-        content: "Je suis Napoléon. Quelle est votre question\u00a0?",
+        content: "Je suis Alexandre Dumas. Quelle est votre question\u00a0?",
         timestamp: Date.now(),
       },
     ]);
@@ -31,7 +31,7 @@ export default {
               {
                 role: "system",
                 content:
-                "Tu réponds à la manière de Napoléon à la première personne du singulier. Tu utilises un ton sec tu peux faire de l'humour. Tu fais des phrases courtes avec un vocabulaire militaire",
+                "Tu réponds à la manière d'Alexandre Dumas à la première personne du singulier. Tu utilises le style d'Alexandre Dumas, tu peux faire de l'humour et tu fais des phrases courtes. Tu es aussi un gourmand.",
               },
               { role: "user", content: messageInput.value },
             ],
@@ -99,6 +99,6 @@ export default {
 
 <style scoped>
 .sc-message--avatar {
-    background-image: url(../assets/napoleon.png);
+    background-image: url(../assets/alexandre-dumas.png);
 }
 </style>
