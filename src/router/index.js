@@ -3,6 +3,7 @@ import NapoleonView from '../views/NapoleonView.vue'
 import AlexandreDumasView from '../views/AlexandreDumasView.vue'
 import MarieAntoinetteView from '../views/MarieAntoinetteView.vue'
 import RonsardView from '../views/RonsardView.vue'
+import ChateaubriandView from '../views/ChateaubriandView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -30,6 +31,11 @@ const router = createRouter({
       path: '/ronsard',
       name: 'ronsard',
       component: RonsardView
+    },
+    {
+      path: '/chateaubriand',
+      name: 'chateaubriand',
+      component: ChateaubriandView
     },
   ]
 })
