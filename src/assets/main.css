@@ -104,6 +104,7 @@
   -webkit-font-smoothing: subpixel-antialiased;
   padding: 10px;
   white-space: pre-wrap;
+  height: fit-content;
 }
 .message_bot .sc-message--file{
   background-color: #fff;
