@@ -19,11 +19,6 @@ export default {
       required: true
     }
   },
-//   computed: {
-//         async backgroundImage() {
-//             return await import(`../assets/${this.PhotoBot}`);
-//         }
-//     },
   setup(props) {
     const messageInput = ref("");
     const messageInputBeforeDelete = ref("");
@@ -38,6 +33,28 @@ export default {
     const isApiResponding = ref(false);
     const getImageUrl = (name) => {
         return new URL(`../assets/${name}`, import.meta.url).href
+    }
+    const confidentialite = () => {
+        messages.value.push({
+            role: "bot",
+            content: "<span id='confidentilite'>Les données collectées par ce chatbot sont anonymes et ne sont pas conservées. Elles sont utilisées uniquement pour l'entraînement de l'Intelligence Artificielle (<a href='https://openai.com/'>ChatGPT / OpenAI</a>). Les données sont supprimées à la fin de chaque session.</span>",
+            timestamp: Date.now(),
+        });
+        // Récupération de l'élément HTML où afficher le contenu contenant le lien
+        const contentConfidentilite = document.getElementById("confidentilite");
+        // Utilisation de innerHTML pour afficher le contenu en HTML
+        contentConfidentilite.innerHTML = messages.value[messages.value.length - 1].content;
+    }
+    const aPropos = () => {
+        messages.value.push({
+            role: "bot",
+            content: "<span id='a-propos'>Ce chatbot est réalisé par <a href='https://artybot.fr'>Artybot</a>. Pour nous <a href='mailto:caroline.rosnet@upculture.fr'>contacter 💌</a></span>",
+            timestamp: Date.now(),
+        });
+        // Récupération de l'élément HTML où afficher le contenu contenant le lien
+        const contentAbout = document.getElementById("a-propos");
+        // Utilisation de innerHTML pour afficher le contenu en HTML
+        contentAbout.innerHTML = messages.value[messages.value.length - 1].content;
     }
 
     const sendMessage = async () => {
@@ -95,6 +112,8 @@ export default {
       messageInput,
       messages,
       sendMessage,
+      confidentialite,
+      aPropos,
       messageList,
       isApiResponding,
       getImageUrl,
@@ -118,7 +137,7 @@ export default {
                 <span></span>
                 <span></span>
               </div>
-              <p>{{ message.content }}</p>
+              <p v-html="message.content"></p>
             </div>
           </div>
         </div>
@@ -129,7 +148,8 @@ export default {
           <button @click="sendMessage"><img src="../assets/send.png" alt="send"></button>
         </div>
         <div class="sc-menu">
-          <a href="#"><img src="../assets/cadenas.png" alt="cadenas" /></a>
+          <a @click="confidentialite" href="#"><img src="../assets/cadenas.png" alt="cadenas" /></a>
+          <a @click="aPropos" href="#"><img src="../assets/artychaud.png" alt="artychaud" /></a>
         </div>
       </div>
     </div>
@@ -137,6 +157,183 @@ export default {
 </template>
 
 <style scoped>
+#chatbot {
+  width: 370px;
+  height: calc(100% - 120px);
+  max-height: 590px;
+  position: fixed;
+  right: 25px;
+  bottom: 100px;
+  box-sizing: border-box;
+  box-shadow: 0 7px 40px 2px rgba(148,149,150,.1);
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 10px;
+  border: 1px solid #000;
+}
+@media (max-width: 450px) {
+  #chatbot {
+      width: 100%;
+      height: 100%;
+      max-height: 100%;
+      border-radius: 0;
+      right: 0;
+      bottom: 0;
+  }
+}
+/* HEADER */
+.sc-header {
+  max-height: 60px;
+  min-height: 60px;
+  border-top-left-radius: 9px;
+  border-top-right-radius: 9px;
+  padding-right: 10px;
+  padding-left: 10px;
+  box-shadow: 0 1px 4px rgba(0,0,0,.2);
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  z-index: 1;
+}
+.sc-header .logo {
+  align-self: center;
+  padding: 10px;
+  max-width: 200px;
+  max-height: 70px;
+}
+/* FIN HEADER */
+
+/* CONTENT */
+.sc-message-list {
+  background-color: rgb(247, 241, 240);
+  height: 100%;
+  overflow-y: auto;
+  background-size: 100%;
+  padding: 40px 0;
+}
+.sc-message {
+  margin: auto;
+  padding-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 0 10px;
+}
+.message_bot .sc-message--content {
+  width: 100%;
+  display: flex;
+}
+.message_user .sc-message--content {
+  width: 100%;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-start;
+}
+.sc-message--content.received {
+  color: #345ba5;
+}
+.sc-message--content.sent {
+  color: white;
+}
+
+.sc-message-list .message_bot {
+  display: flex;
+  align-items: flex-start;
+  margin: 0 10px;
+}
+.sc-message--avatar {
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-position: top;
+  min-width: 50px;
+  min-height: 50px;
+  border-radius: 50%;
+  align-self: center;
+  margin-right: 15px;
+}
+.sc-message--file{
+  border-radius: 6px;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 1.4;
+  -webkit-font-smoothing: subpixel-antialiased;
+  padding: 10px;
+  white-space: pre-wrap;
+  height: fit-content;
+}
+.message_bot .sc-message--file{
+  background-color: #fff;
+  margin-right: 10px;
+}
+.message_user .sc-message--file{
+  background-color: #345ba5;
+  margin-left: 10px;
+}
+/* FIN CONTENT */
+
+/* BOTTOM */
+.sc-user-input {
+  min-height: 55px;
+  margin: 0;
+  position: relative;
+  bottom: 0;
+  display: flex;
+  background-color: white;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+.sc-user-input input {
+  border: none;
+  padding: 0 1rem;
+  width: 100%;
+}
+.sc-user-input button {
+  border: none;
+  margin: 0.5rem;
+  color: white;
+  background-color: transparent;
+  border-radius: 10px;
+  height: 35px;
+}
+.sc-user-input button img {
+  height: 100%;
+}
+.sc-user-input button:hover {
+  cursor: pointer;
+}
+.sc-menu {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-evenly;
+  align-items: center;
+  min-height: 55px;
+  margin: 0;
+  position: relative;
+  bottom: 0;
+  display: flex;
+  border-top: 1px solid rgba(0,0,0,.21176);
+  background-color: white;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+.sc-menu a img {
+  height: 45px;
+  width: 55px;
+  object-fit: scale-down;
+}
+
+#chatbot .input {
+display: flex;
+flex-direction: row;
+align-items: center;
+justify-content: center;
+width: 100%;
+}
+#chatbot .input input {
+width: 100%;
+}
 .sc-typing-indicator {
   text-align: center;
   border-radius: 6px;
