@@ -24,7 +24,7 @@ const router = createRouter({
       path: '/marie-antoinette',
       name: 'marie-antoinette',
       component: MarieAntoinetteView
-    }
+    },
   ]
 })
 

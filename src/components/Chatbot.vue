@@ -2,9 +2,11 @@
 import { ref, nextTick } from "vue";
 import axios from "axios";
 
+// Clé d'API OpenAI
 const openaiApiKey = import.meta.env.VITE_OPENAI_API_KEY ;
 
 export default {
+    // récupération des variables passées en props
     props: {
     PremierMessage: {
       type: String,
@@ -20,8 +22,10 @@ export default {
     }
   },
   setup(props) {
+    // Déclaration des variables
     const messageInput = ref("");
     const messageInputBeforeDelete = ref("");
+    // Permet de créer un tableau de messages et d'y mettre le premier message
     const messages = ref([
       {
         role: "bot",
@@ -31,82 +35,92 @@ export default {
     ]);
     const messageList = ref(null);
     const isApiResponding = ref(false);
+    // permet d'avoir une URL d'image relative avec Vite.js
     const getImageUrl = (name) => {
         return new URL(`../assets/${name}`, import.meta.url).href
     }
+    // Fonction pour afficher les messages de confidentilités
     const confidentialite = () => {
         messages.value.push({
             role: "bot",
             content: "<span id='confidentilite'>Les données collectées par ce chatbot sont anonymes et ne sont pas conservées. Elles sont utilisées uniquement pour l'entraînement de l'Intelligence Artificielle (<a href='https://openai.com/'>ChatGPT / OpenAI</a>). Les données sont supprimées à la fin de chaque session.</span>",
             timestamp: Date.now(),
         });
-        // Récupération de l'élément HTML où afficher le contenu contenant le lien
+        // Permet que les lien ne soient pas interprétés comme du texte simple
         const contentConfidentilite = document.getElementById("confidentilite");
-        // Utilisation de innerHTML pour afficher le contenu en HTML
         contentConfidentilite.innerHTML = messages.value[messages.value.length - 1].content;
     }
+    // Fonction pour afficher les messages à propos
     const aPropos = () => {
         messages.value.push({
             role: "bot",
             content: "<span id='a-propos'>Ce chatbot est réalisé par <a href='https://artybot.fr'>Artybot</a>. Pour nous <a href='mailto:caroline.rosnet@upculture.fr'>contacter 💌</a></span>",
             timestamp: Date.now(),
         });
-        // Récupération de l'élément HTML où afficher le contenu contenant le lien
+        // Permet que les lien ne soient pas interprétés comme du texte simple
         const contentAbout = document.getElementById("a-propos");
-        // Utilisation de innerHTML pour afficher le contenu en HTML
         contentAbout.innerHTML = messages.value[messages.value.length - 1].content;
     }
 
+    // Fonction pour envoyer un message
     const sendMessage = async () => {
-      if (messageInput.value.trim() === "") {
-        return;
-      }
-      messages.value.push({
-        role: "user",
-        content: messageInput.value,
-        timestamp: Date.now(),
-      });
-      messageInputBeforeDelete.value = messageInput.value;
-      messageInput.value = "";
-      messages.value.push({
-        role: "bot",
-        content: "",
-        timestamp: Date.now(),
-      });
-      try {
-        isApiResponding.value = true;
-        const openaiResponse = await axios.post(
-          "https://api.openai.com/v1/chat/completions",
-          {
-            model: "gpt-3.5-turbo",
-            max_tokens: 180,
-            messages: [
-              {
-                role: "system",
-                content: `${props.Prompt}`,
-              },
-              { role: "user", content: messageInputBeforeDelete.value },
-            ],
-          },
-          {
-            headers: {
-              Authorization: `Bearer ${openaiApiKey}`,
-              "Content-Type": "application/json",
+        // Si le message est vide, on ne fait rien
+        if (messageInput.value.trim() === "") {
+            return;
+        }
+        // On ajoute le message de l'utilisateur dans le fil de la conversation
+        messages.value.push({
+            role: "user",
+            content: messageInput.value,
+            timestamp: Date.now(),
+        });
+        // On attribue le message de l'utilisateur à une variable pour pouvoir vider le champ de saisie
+        messageInputBeforeDelete.value = messageInput.value;
+        messageInput.value = "";
+        // On ajoute un message vide pour laisser la place au message de l'IA et mettre le typing en attendant la réponse de l'API
+        messages.value.push({
+            role: "bot",
+            content: "",
+            timestamp: Date.now(),
+        });
+        try {
+            // On affiche le typing
+            isApiResponding.value = true;
+            // Requete à l'API OpenAI
+            const openaiResponse = await axios.post(
+            "https://api.openai.com/v1/chat/completions",
+            {
+                model: "gpt-3.5-turbo",
+                max_tokens: 180,
+                messages: [
+                {
+                    role: "system",
+                    content: `${props.Prompt}`,
+                },
+                { role: "user", content: messageInputBeforeDelete.value },
+                ],
             },
-          }
-        );
-        isApiResponding.value = false;
-        const botMessage = {
-          role: "bot",
-          content: `${openaiResponse.data.choices[0].message.content}`,
-          timestamp: Date.now(),
-        };
-        messages.value.splice(-1, 1, botMessage);
-      } catch (error) {
-        console.error(error);
-      }
-      await nextTick();
-      messageList.value.scrollTop = messageList.value.scrollHeight;
+            {
+                headers: {
+                Authorization: `Bearer ${openaiApiKey}`,
+                "Content-Type": "application/json",
+                },
+            }
+            );
+            // On supprime le typing et on remplace par le message de l'IA
+            isApiResponding.value = false;
+            const botMessage = {
+            role: "bot",
+            content: `${openaiResponse.data.choices[0].message.content}`,
+            timestamp: Date.now(),
+            };
+            messages.value.splice(-1, 1, botMessage);
+        } catch (error) {
+            console.error(error);
+        }
+        await nextTick();
+        // On scroll automatiquement vers le bas de la conversation
+        messageList.value.scrollTop = messageList.value.scrollHeight;
     };
     return {
       messageInput,
