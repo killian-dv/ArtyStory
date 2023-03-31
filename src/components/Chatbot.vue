@@ -19,6 +19,11 @@ export default {
       required: true
     }
   },
+//   computed: {
+//         async backgroundImage() {
+//             return await import(`../assets/${this.PhotoBot}`);
+//         }
+//     },
   setup(props) {
     const messageInput = ref("");
     const messageInputBeforeDelete = ref("");
@@ -31,7 +36,9 @@ export default {
     ]);
     const messageList = ref(null);
     const isApiResponding = ref(false);
-    const PhotoBot = ref(props.PhotoBot);
+    const getImageUrl = (name) => {
+        return new URL(`../assets/${name}`, import.meta.url).href
+    }
 
     const sendMessage = async () => {
       if (messageInput.value.trim() === "") {
@@ -90,7 +97,7 @@ export default {
       sendMessage,
       messageList,
       isApiResponding,
-      PhotoBot,
+      getImageUrl,
     };
   },
 };
@@ -104,7 +111,7 @@ export default {
       <div class="sc-message-list" ref="messageList">
         <div v-for="message in messages" :key="message.timestamp" :class="['sc-message', message.role === 'bot' ? 'message_bot' : 'message_user']">
           <div class="sc-message--content" :class="message.role === 'bot' ? 'received' : 'sent'">
-            <div v-if="message.role === 'bot' || message.role === 'system'" class="sc-message--avatar" :style="{ 'background-image': `url(../src/assets/${PhotoBot})` }"></div>
+            <div v-if="message.role === 'bot' || message.role === 'system'" class="sc-message--avatar" :style="{ 'background-image': 'url(' + getImageUrl(PhotoBot) + ')' }"></div>
             <div class="sc-message--file">
               <div v-if="message.role === 'bot' && message.content === messages[messages.length - 1].content && isApiResponding" class="sc-typing-indicator">
                 <span></span>
