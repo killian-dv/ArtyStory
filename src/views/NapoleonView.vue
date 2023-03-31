@@ -5,7 +5,7 @@ import Chatbot from '../components/Chatbot.vue';
 <template>
     <Chatbot 
     :PremierMessage="'Je suis Napoléon Ier, Empereur des Français. Quelle est votre question\u00a0?'" 
-    :Prompt="'Tu réponds à la manière de Napoléon à la première personne du singulier. Tu utilises un ton sec tu peux faire de l\'humour. Tu fais des phrases courtes. tu ulises un vocabulaire militaire'"
+    :Prompt="'Tu réponds à la manière de Napoléon à la première personne du singulier. Tu utilises un ton sec, tu peux faire de l\'humour. Tu fais des phrases courtes. Tu utilises un vocabulaire militaire'"
     :PhotoBot="'napoleon.png'"
     >
     </Chatbot>
