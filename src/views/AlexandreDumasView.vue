@@ -36,7 +36,7 @@ export default {
             messages: [
               {
                 role: "system",
-                content: "Tu réponds comme Alexandre Dumas à la première personne du singulier. Tu parles à des spécialistes.",
+                content: "Tu réponds comme Alexandre Dumas à la première personne du singulier.",
               },
               { role: "user", content: messageInputBeforeDelete.value },
             ],
@@ -91,7 +91,7 @@ export default {
       </div>
       <div class="sc-bottom">
         <div class="sc-user-input">
-          <input v-model="messageInput" @keyup.enter="sendMessage" placeholder="Entrez votre message" />
+          <input v-model="messageInput" @keyup.enter="sendMessage" placeholder="Posez votre question"/>
           <button @click="sendMessage"><img src="../assets/send.png" alt="send"></button>
         </div>
         <div class="sc-menu">

@@ -1,7 +1,6 @@
 <script>
 import { ref, nextTick } from "vue";
 import axios from "axios";
-// import TypingIndicator from "../components/TypingIndicator.vue";
 
 const openaiApiKey = import.meta.env.VITE_OPENAI_API_KEY ;
 
@@ -9,7 +8,6 @@ export default {
   setup() {
     const messageInput = ref("");
     const messageInputBeforeDelete = ref("");
-    // const TypingIndicator = ref(null);
     const messages = ref([
       {
         role: "bot",
@@ -18,6 +16,8 @@ export default {
       },
     ]);
     const messageList = ref(null);
+    const isApiResponding = ref(false);
+
     const sendMessage = async () => {
       if (messageInput.value.trim() === "") {
         return;
@@ -29,10 +29,13 @@ export default {
       });
       messageInputBeforeDelete.value = messageInput.value;
       messageInput.value = "";
+      messages.value.push({
+        role: "bot",
+        content: "",
+        timestamp: Date.now(),
+      });
       try {
-        // showTypingIndicator.value = true; // afficher l'indicateur de saisie en cours
-        // messageInput.disabled = true; // désactiver l'input de saisie de l'utilisateur
-        // await nextTick(); // attendre la mise à jour de l'affichage
+        isApiResponding.value = true;
         const openaiResponse = await axios.post(
           "https://api.openai.com/v1/chat/completions",
           {
@@ -53,33 +56,29 @@ export default {
             },
           }
         );
-        // console.log(messageInput.value);
-        // console.log(openaiResponse)
-        // showTypingIndicator.value = false; // cacher l'indicateur de saisie en cours
+        isApiResponding.value = false;
         const botMessage = {
           role: "bot",
           content: `${openaiResponse.data.choices[0].message.content}`,
           timestamp: Date.now(),
         };
-        messages.value.push(botMessage);
+        messages.value.splice(-1, 1, botMessage);
       } catch (error) {
         console.error(error);
       }
       await nextTick();
       messageList.value.scrollTop = messageList.value.scrollHeight;
-      // messageInput.disabled = false; // ré-activer l'input de saisie de l'utilisateur
     };
-
     return {
       messageInput,
       messages,
       sendMessage,
       messageList,
+      isApiResponding,
     };
   },
 };
 </script>
-
 <template>
   <main>
     <div id="chatbot">
@@ -91,7 +90,11 @@ export default {
           <div class="sc-message--content" :class="message.role === 'bot' ? 'received' : 'sent'">
             <div v-if="message.role === 'bot' || message.role === 'system'" class="sc-message--avatar"></div>
             <div class="sc-message--file">
-              <!-- <TypingIndicator v-if="showTypingIndicator && message.role === 'bot'" :messageColors="{backgroundColor: '#F3F3F3', color: '#333333'}"/> -->
+              <div v-if="message.role === 'bot' && message.content === messages[messages.length - 1].content && isApiResponding" class="sc-typing-indicator">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
               <p>{{ message.content }}</p>
             </div>
           </div>
@@ -99,7 +102,7 @@ export default {
       </div>
       <div class="sc-bottom">
         <div class="sc-user-input">
-          <input v-model="messageInput" @keyup.enter="sendMessage" placeholder="Entrez votre message" />
+          <input v-model="messageInput" @keyup.enter="sendMessage" placeholder="Posez votre question"/>
           <button @click="sendMessage"><img src="../assets/send.png" alt="send"></button>
         </div>
         <div class="sc-menu">
@@ -113,5 +116,39 @@ export default {
 <style scoped>
 .sc-message--avatar {
     background-image: url(../assets/napoleon.png);
+}
+.sc-typing-indicator {
+  text-align: center;
+  /* padding: 17px 20px; */
+  border-radius: 6px;
+}
+.sc-typing-indicator span {
+  display: inline-block;
+  background-color: #b6b5ba;
+  width: 10px;
+  height: 10px;
+  border-radius: 100%;
+  margin-right: 3px;
+  animation: bob 1.2s infinite;
+}
+/* SAFARI GLITCH */
+.sc-typing-indicator span:nth-child(1) {
+  animation-delay: -1s;
+}
+.sc-typing-indicator span:nth-child(2) {
+  animation-delay: -0.85s;
+}
+.sc-typing-indicator span:nth-child(3) {
+  animation-delay: -0.7s;
+}
+@keyframes bob {
+  10% {
+    transform: translateY(-10px);
+    background-color: #9e9da2;
+  }
+  50% {
+    transform: translateY(0);
+    background-color: #b6b5ba;
+  }
 }
 </style>
