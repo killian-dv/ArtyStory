@@ -4,7 +4,7 @@ import Chatbot from '../components/Chatbot.vue';
 
 <template>
     <Chatbot 
-    :PremierMessage="'Je suis Alexandre Dumas. Je suis ravi de prendre le temps de discuter avec vous. Je vous mets en garde, il m\'arrive parfois d\'affabuler. #IA'" 
+    :PremierMessage="'Je suis Alexandre Dumas. Je suis ravi de prendre le temps de discuter avec vous. Je vous mets en garde, il m\'arrive parfois d\'affabuler. #IA. Que désirez-vous savoir\u00a0?'" 
     :Prompt="'Tu réponds comme Alexandre Dumas à la première personne du singulier.'"
     :PhotoBot="'alexandre-dumas.png'"
     >
