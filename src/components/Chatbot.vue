@@ -91,13 +91,20 @@ export default {
             "https://api.openai.com/v1/chat/completions",
             {
                 model: "gpt-3.5-turbo",
-                max_tokens: 180,
+                max_tokens: 256,
+                temperature: 0,
+                top_p: 0.5,
+                presence_penalty: 0,
+                frequency_penalty: 0,
                 messages: [
                 {
                     role: "system",
                     content: `${props.Prompt}`,
                 },
-                { role: "user", content: messageInputBeforeDelete.value },
+                { 
+                  role: "user",
+                  content: messageInputBeforeDelete.value,
+                },
                 ],
             },
             {
