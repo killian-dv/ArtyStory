@@ -4,14 +4,16 @@ import AlexandreDumasView from '../views/AlexandreDumasView.vue'
 import MarieAntoinetteView from '../views/MarieAntoinetteView.vue'
 import RonsardView from '../views/RonsardView.vue'
 import ChateaubriandView from '../views/ChateaubriandView.vue'
+import JulesCesarView from '../views/JulesCesarView.vue'
+import PereNoelView from '../views/PereNoelView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
-    {
-      path: '/',
-      name: 'home',
-    },
+    // {
+    //   path: '/',
+    //   name: 'home',
+    // },
     {
       path: '/napoleon',
       name: 'napoleon',
@@ -36,6 +38,16 @@ const router = createRouter({
       path: '/chateaubriand',
       name: 'chateaubriand',
       component: ChateaubriandView
+    },
+    {
+      path: '/jules-cesar',
+      name: 'jules-cesar',
+      component: JulesCesarView
+    },
+    {
+      path: '/pere-noel',
+      name: 'pere-noel',
+      component: PereNoelView
     },
   ]
 })

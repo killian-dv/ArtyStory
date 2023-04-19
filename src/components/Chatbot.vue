@@ -273,6 +273,7 @@ export default {
   border-radius: 50%;
   align-self: center;
   margin-right: 15px;
+  background-color: #fff;
 }
 .sc-message--file{
   border-radius: 6px;
