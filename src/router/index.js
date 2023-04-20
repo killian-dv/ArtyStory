@@ -8,6 +8,7 @@ import JulesCesarView from '../views/JulesCesarView.vue'
 import PereNoelView from '../views/PereNoelView.vue'
 import RosaBonheur from '../views/RosaBonheurView.vue'
 import VictorHugo from '../views/VictorHugoView.vue'
+import Renoir from '../views/RenoirView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -60,6 +61,11 @@ const router = createRouter({
       path: '/victor-hugo',
       name: 'victor-hugo',
       component: VictorHugo
+    },
+    {
+      path: '/renoir',
+      name: 'renoir',
+      component: Renoir
     },
   ]
 })
