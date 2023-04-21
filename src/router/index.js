@@ -9,9 +9,12 @@ import PereNoelView from '../views/PereNoelView.vue'
 import RosaBonheur from '../views/RosaBonheurView.vue'
 import VictorHugo from '../views/VictorHugoView.vue'
 import Renoir from '../views/RenoirView.vue'
-import ClaudeMonnet from '../views/ClaudeMonnetView.vue'
+import ClaudeMonet from '../views/ClaudeMonetView.vue'
 import JeanFontaine from '../views/JeanFontaineView.vue'
-
+import HectorBerlioz from '../views/BerliozView.vue'
+import ErikSatie from '../views/SatieView.vue'
+import Stendhal from '../views/StendhalView.vue'
+import Balzac from '../views/BalzacView.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -70,14 +73,34 @@ const router = createRouter({
       component: Renoir
     },
     {
-      path: '/claude-monnet',
-      name: 'claude-monnet',
-      component: ClaudeMonnet
+      path: '/claude-monet',
+      name: 'claude-monet',
+      component: ClaudeMonet
     },
     {
-      path: '/jean-fontaine',
-      name: 'jean-fontaine',
+      path: '/la-fontaine',
+      name: 'la-fontaine',
       component: JeanFontaine
+    },
+    {
+      path: '/hector-berlioz',
+      name: 'hector-berlioz',
+      component: HectorBerlioz
+    },
+    {
+      path: '/erik-satie',
+      name: 'erik-satie',
+      component: ErikSatie
+    },
+    {
+      path: '/stendhal',
+      name: 'stendhal',
+      component: Stendhal
+    },
+    {
+      path: '/balzac',
+      name: 'balzac',
+      component: Balzac
     },
   ]
 })
