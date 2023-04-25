@@ -190,11 +190,11 @@ const router = createRouter({
     },
     {
       path: '/francois-rabelais',
-      name: 'fraancois-rabelais',
+      name: 'francois-rabelais',
       component: FrancoisRabelais
     },
     {
-      path: '/gustaave-caillebotte',
+      path: '/gustave-caillebotte',
       name: 'gustave-caillebotte',
       component: GustaveCaillebotte
     },
