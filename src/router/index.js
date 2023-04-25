@@ -15,6 +15,7 @@ import HectorBerlioz from '../views/BerliozView.vue'
 import ErikSatie from '../views/SatieView.vue'
 import Stendhal from '../views/StendhalView.vue'
 import Balzac from '../views/BalzacView.vue'
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
