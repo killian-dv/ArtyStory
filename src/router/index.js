@@ -20,6 +20,26 @@ import EmileCoue from '../views/EmileCoueView.vue'
 import GeorgeSand from '../views/GeorgeSandView.vue'
 import MauriceLeblanc from '../views/MauriceLeblancView.vue'
 import Voltaire from '../views/VoltaireView.vue'
+import ArthurRimbaud from '../views/ArthurRimbaudView.vue'
+import AugusteBartholdi from '../views/AugusteBartholdiView.vue'
+import AugusteEscoffier from '../views/AugusteEscoffierView.vue'
+import AugusteRodin from '../views/AugusteRodinView.vue'
+import Champollion from '../views/ChampollionView.vue'
+import EdmondRostand from '../views/EdmondRostandView.vue'
+import EmileZola from '../views/EmileZolaView.vue'
+import FrancoisRabelais from '../views/FrancoisRabelaisView.vue'
+import GustaveCaillebotte from '../views/GustaveCaillebotteView.vue'
+import GustaveFlaubert from '../views/GustaveFlaubertView.vue'
+import JeanJacquesRousseau from '../views/JeanJacquesRousseauView.vue'
+import JeanneArc from '../views/JeanneArcView.vue'
+import JulesVerne from '../views/JulesVerneView.vue'
+import MarcelProust from '../views/MarcelProustView.vue'
+import MichelDeMontaigne from '../views/MichelDeMontaigneView.vue'
+import Nostradamus from '../views/NostradamusView.vue'
+import PaulCezanne from '../views/PaulCezanneView.vue'
+import PaulVerlaine from '../views/PaulVerlaineView.vue'
+import PierreCorneille from '../views/PierreCorneilleView.vue'
+import SarahBernhardt from '../views/SarahBernhardtView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -132,6 +152,106 @@ const router = createRouter({
       path: '/voltaire',
       name: 'voltaire',
       component: Voltaire
+    },
+    {
+      path: '/arthur-rimbaud',
+      name: 'arthur-rimbaud',
+      component: ArthurRimbaud
+    },
+    {
+      path: '/auguste-bartholdi',
+      name: 'auguste-bartholdi',
+      component: AugusteBartholdi
+    },
+    {
+      path: '/auguste-escoffier',
+      name: 'auguste-escoffier',
+      component: AugusteEscoffier
+    },
+    {
+      path: '/auguste-rodin',
+      name: 'auguste-rodin',
+      component: AugusteRodin
+    },
+    {
+      path: '/champollion',
+      name: 'champollion',
+      component: Champollion
+    },
+    {
+      path: '/edmond-rostand',
+      name: 'edmond-rostand',
+      component: EdmondRostand
+    },
+    {
+      path: '/emile-zola',
+      name: 'emile-zola',
+      component: EmileZola
+    },
+    {
+      path: '/francois-rabelais',
+      name: 'fraancois-rabelais',
+      component: FrancoisRabelais
+    },
+    {
+      path: '/gustaave-caillebotte',
+      name: 'gustave-caillebotte',
+      component: GustaveCaillebotte
+    },
+    {
+      path: '/gustave-flaubert',
+      name: 'gustave-flaubert',
+      component: GustaveFlaubert
+    },
+    {
+      path: '/jean-jacques-rousseau',
+      name: 'jean-jacques-rousseau',
+      component: JeanJacquesRousseau
+    },
+    {
+      path: '/jeanne-darc',
+      name: 'jeanne-darc',
+      component: JeanneArc
+    },
+    {
+      path: '/jules-verne',
+      name: 'jules-verne',
+      component: JulesVerne
+    },
+    {
+      path: '/marcel-proust',
+      name: 'marcel-proust',
+      component: MarcelProust
+    },
+    {
+      path: '/michel-de-montaigne',
+      name: 'michel-de-montaigne',
+      component: MichelDeMontaigne
+    },
+    {
+      path: '/nostradamus',
+      name: 'nostradamus',
+      component: Nostradamus
+    },
+    {
+      path: '/paul-cezanne',
+      name: 'paul-cezanne',
+      component: PaulCezanne
+    },
+    {
+      path: '/paul-verlaine',
+      name: 'paul-verlaine',
+      component: PaulVerlaine
+    },
+    {
+      path: '/pierre-corneille',
+      name: 'pierre-corneille',
+      component: PierreCorneille
+    },
+    {
+      path: '/sarah-bernhardt',
+      name: 'sarah-bernhardt',
+      component: SarahBernhardt
     },
   ]
 })
