@@ -15,6 +15,11 @@ import HectorBerlioz from '../views/BerliozView.vue'
 import ErikSatie from '../views/SatieView.vue'
 import Stendhal from '../views/StendhalView.vue'
 import Balzac from '../views/BalzacView.vue'
+import DenisDiderot from '../views/DenisDiderotView.vue'
+import EmileCoue from '../views/EmileCoueView.vue'
+import GeorgeSand from '../views/GeorgeSandView.vue'
+import MauriceLeblanc from '../views/MauriceLeblancView.vue'
+import Voltaire from '../views/VoltaireView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -102,6 +107,31 @@ const router = createRouter({
       path: '/balzac',
       name: 'balzac',
       component: Balzac
+    },
+    {
+      path: '/denis-diderot',
+      name: 'denis-diderot',
+      component: DenisDiderot
+    },
+    {
+      path: '/emile-coue',
+      name: 'emile-coue',
+      component: EmileCoue
+    },
+    {
+      path: '/george-sand',
+      name: 'george-sand',
+      component: GeorgeSand
+    },
+    {
+      path: '/maurice-leblanc',
+      name: 'maurice-leblanc',
+      component: MauriceLeblanc
+    },
+    {
+      path: '/voltaire',
+      name: 'voltaire',
+      component: Voltaire
     },
   ]
 })
