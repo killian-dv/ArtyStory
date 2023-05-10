@@ -12,6 +12,14 @@ export default {
       type: String,
       required: true
     },
+    DeuxiemeMessage: {
+      type: String,
+      required: false
+    },
+    TroisiemeMessage: {
+      type: String,
+      required: false
+    },
     Prompt: {
       type: String,
       required: true
@@ -19,12 +27,28 @@ export default {
     PhotoBot: {
       type: String,
       required: true
+    },
+    MoreButton1Link: {
+      type: String,
+      required: false
+    },
+    MoreButton1Image: {
+      type: String,
+      required: false
     }
   },
   setup(props) {
     // Déclaration des variables
     const messageInput = ref("");
     const messageInputBeforeDelete = ref("");
+    const isApiResponding = ref(false);
+    let Button1Link = ""; // Déclarer les variables en dehors du bloc if
+    let Button1Image = "";
+    if (props.MoreButton1Link !== undefined) {
+      Button1Link = props.MoreButton1Link;
+      Button1Image = props.MoreButton1Image;
+    }
+    
     // Permet de créer un tableau de messages et d'y mettre le premier message
     const messages = ref([
       {
@@ -33,8 +57,47 @@ export default {
         timestamp: Date.now(),
       },
     ]);
+    
+    // Permet de push le deuxième et troisième message si ils sont passés en props
+    if (props.DeuxiemeMessage !== undefined) {
+      messages.value.push({
+            role: "bot",
+            content: "",
+            timestamp: Date.now(),
+      });
+      isApiResponding.value = true;
+      setTimeout(() => {
+        isApiResponding.value = false;
+        const DeuxiemeMessageTemp = {
+            role: "bot",
+            content: `${props.DeuxiemeMessage}`,
+            timestamp: Date.now(),
+            };
+        messages.value.splice(-1, 1, DeuxiemeMessageTemp);
+
+        // Si troisième message
+        if (props.TroisiemeMessage !== undefined) {
+          messages.value.push({
+                role: "bot",
+                content: "",
+                timestamp: Date.now(),
+          });
+          isApiResponding.value = true;
+          setTimeout(() => {
+            isApiResponding.value = false;
+            const TroisiemeMessageTemp = {
+                role: "bot",
+                content: `${props.TroisiemeMessage}`,
+                timestamp: Date.now(),
+                };
+            messages.value.splice(-1, 1, TroisiemeMessageTemp);
+          }, 2000);
+        }
+      }, 2000);
+    }
+    
     const messageList = ref(null);
-    const isApiResponding = ref(false);
+    
     // permet d'avoir une URL d'image relative avec Vite.js
     const getImageUrl = (name) => {
         return new URL(`../assets/${name}`, import.meta.url).href
@@ -138,6 +201,8 @@ export default {
       messageList,
       isApiResponding,
       getImageUrl,
+      Button1Link,
+      Button1Image
     };
   },
 };
@@ -169,6 +234,7 @@ export default {
           <button @click="sendMessage"><img src="../assets/send.png" alt="send"></button>
         </div>
         <div class="sc-menu">
+          <a v-if="MoreButton1Link !== undefined" href="https://studio.artybot.fr/a/quest/chat/quiz_napoleon"><img src="../assets/home_button.png" alt="home" /></a>
           <a @click="confidentialite" href="#"><img src="../assets/cadenas.png" alt="cadenas" /></a>
           <a @click="aPropos" href="#"><img src="../assets/artychaud.png" alt="artychaud" /></a>
         </div>
