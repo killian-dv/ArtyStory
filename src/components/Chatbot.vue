@@ -234,7 +234,7 @@ export default {
           <button @click="sendMessage"><img src="../assets/send.png" alt="send"></button>
         </div>
         <div class="sc-menu">
-          <a v-if="MoreButton1Link !== undefined" href="https://studio.artybot.fr/a/quest/chat/quiz_napoleon"><img src="../assets/home_button.png" alt="home" /></a>
+          <a v-if="MoreButton1Link !== undefined" :href="`${MoreButton1Link}`"><img :src="getImageUrl(`${MoreButton1Image}`)" alt="home" /></a>
           <a @click="confidentialite" href="#"><img src="../assets/cadenas.png" alt="cadenas" /></a>
           <a @click="aPropos" href="#"><img src="../assets/artychaud.png" alt="artychaud" /></a>
         </div>
