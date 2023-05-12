@@ -41,6 +41,8 @@ import PaulVerlaine from '../views/PaulVerlaineView.vue'
 import PierreCorneille from '../views/PierreCorneilleView.vue'
 import SarahBernhardt from '../views/SarahBernhardtView.vue'
 import CamilleClaudel from '../views/CamilleClaudelView.vue'
+import ArseneLupin from '../views/ArseneLupinView.vue'
+import Lafayette from '../views/LafayetteView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -258,6 +260,16 @@ const router = createRouter({
       path: '/camille-claudel',
       name: 'camille-claudel',
       component: CamilleClaudel
+    },
+    {
+      path: '/arsene-lupin',
+      name: 'arsene-lupin',
+      component: ArseneLupin
+    },
+    {
+      path: '/lafayette',
+      name: 'lafayette',
+      component: Lafayette
     },
   ]
 })
