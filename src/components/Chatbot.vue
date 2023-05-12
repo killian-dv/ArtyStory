@@ -152,8 +152,6 @@ export default {
             },
           }
         );
-
-        console.log(openaiApiKey.data);
         try {
             // On affiche le typing
             isApiResponding.value = true;
@@ -180,7 +178,7 @@ export default {
             },
             {
                 headers: {
-                Authorization: `Bearer ${openaiApiKey}`,
+                Authorization: `Bearer ${openaiApiKey.data}`,
                 "Content-Type": "application/json",
                 },
             }
