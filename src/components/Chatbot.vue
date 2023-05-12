@@ -2,8 +2,19 @@
 import { ref, nextTick } from "vue";
 import axios from "axios";
 
+// Test
+const openaiApiKey = await axios.get(
+  "https://studio.artybot.fr/api/nlp/histo",
+  {
+    headers: {
+      ContentType: "application/json",
+    },
+  }
+);
+
+console.log(openaiApiKey.data);
+
 // Clé d'API OpenAI
-const openaiApiKey = import.meta.env.VITE_OPENAI_API_KEY ;
 
 export default {
     // récupération des variables passées en props
