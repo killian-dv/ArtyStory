@@ -2,19 +2,6 @@
 import { ref, nextTick } from "vue";
 import axios from "axios";
 
-// Test
-const openaiApiKey = await axios.get(
-  "https://studio.artybot.fr/api/nlp/histo",
-  {
-    headers: {
-      ContentType: "application/json",
-    },
-  }
-);
-
-console.log(openaiApiKey.data);
-
-// Clé d'API OpenAI
 
 export default {
     // récupération des variables passées en props
@@ -157,6 +144,16 @@ export default {
             content: "",
             timestamp: Date.now(),
         });
+        const openaiApiKey = await axios.get(
+          "https://studio.artybot.fr/api/nlp/histo",
+          {
+            headers: {
+              ContentType: "application/json",
+            },
+          }
+        );
+
+        console.log(openaiApiKey.data);
         try {
             // On affiche le typing
             isApiResponding.value = true;
