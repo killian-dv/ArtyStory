@@ -5,7 +5,7 @@ import axios from "axios";
 
 export default {
     // récupération des variables passées en props
-    props: {
+  props: {
     PremierMessage: {
       type: String,
       required: true
@@ -22,6 +22,22 @@ export default {
       type: String,
       required: true
     },
+    PremierMessageEng: {
+      type: String,
+      required: false
+    },
+    DeuxiemeMessageEng: {
+      type: String,
+      required: false
+    },
+    TroisiemeMessageEng: {
+      type: String,
+      required: false
+    },
+    PromptEng: {
+      type: String,
+      required: false
+    },
     PhotoBot: {
       type: String,
       required: true
@@ -36,6 +52,26 @@ export default {
     }
   },
   setup(props) {
+    // Permet de traduire les props en anglais si la langue du navigateur n'est pas le français
+    const userLanguage = window.navigator.language || window.navigator.userLanguage;
+    // console.log(window.navigator.language);
+    let premierMessage = props.PremierMessage;
+    let deuxiemeMessage = props.DeuxiemeMessage;
+    let troisiemeMessage = props.TroisiemeMessage;
+    let prompt = props.Prompt;
+    let confidentialiteContent = "<span id='confidentilite'>Les données collectées par ce chatbot sont anonymes et ne sont pas conservées. Elles sont utilisées uniquement pour l'entraînement de l'Intelligence Artificielle (<a href='https://openai.com/'>ChatGPT / OpenAI</a>). Les données sont supprimées à la fin de chaque session.</span>";
+    let aProposContent = "<span id='a-propos'>Ce chatbot est réalisé par <a href='https://artybot.fr'>Artybot</a>. Pour nous <a href='mailto:caroline.rosnet@upculture.fr'>contacter 💌</a></span>";
+
+    if (userLanguage && userLanguage !== "fr-FR") {
+      premierMessage = props.PremierMessageEng;
+      deuxiemeMessage = props.DeuxiemeMessageEng;
+      troisiemeMessage = props.TroisiemeMessageEng;
+      prompt = props.PromptEng;
+      confidentialiteContent = "<span id='confidentilite'>The data collected by this chatbot is anonymous and is not stored. It is used only for the training of Artificial Intelligence (<a href='https://openai.com/'>ChatGPT / OpenAI</a>). The data is deleted at the end of each session.</span>";
+      aProposContent = "<span id='a-propos'>This chatbot is made by <a href='https://artybot.fr'>Artybot</a>. To <a href='mailto:caroline.rosnet@upculture.fr'>contact us 💌</a></span>";
+    }
+
+
     // Déclaration des variables
     const messageInput = ref("");
     const messageInputBeforeDelete = ref("");
@@ -51,13 +87,13 @@ export default {
     const messages = ref([
       {
         role: "bot",
-        content: `${props.PremierMessage}`,
+        content: `${premierMessage}`,
         timestamp: Date.now(),
       },
     ]);
     
     // Permet de push le deuxième et troisième message si ils sont passés en props
-    if (props.DeuxiemeMessage !== undefined) {
+    if (deuxiemeMessage !== undefined) {
       messages.value.push({
             role: "bot",
             content: "",
@@ -68,13 +104,13 @@ export default {
         isApiResponding.value = false;
         const DeuxiemeMessageTemp = {
             role: "bot",
-            content: `${props.DeuxiemeMessage}`,
+            content: `${deuxiemeMessage}`,
             timestamp: Date.now(),
             };
         messages.value.splice(-1, 1, DeuxiemeMessageTemp);
 
         // Si troisième message
-        if (props.TroisiemeMessage !== undefined) {
+        if (troisiemeMessage !== undefined) {
           messages.value.push({
                 role: "bot",
                 content: "",
@@ -85,7 +121,7 @@ export default {
             isApiResponding.value = false;
             const TroisiemeMessageTemp = {
                 role: "bot",
-                content: `${props.TroisiemeMessage}`,
+                content: `${troisiemeMessage}`,
                 timestamp: Date.now(),
                 };
             messages.value.splice(-1, 1, TroisiemeMessageTemp);
@@ -104,7 +140,7 @@ export default {
     const confidentialite = () => {
         messages.value.push({
             role: "bot",
-            content: "<span id='confidentilite'>Les données collectées par ce chatbot sont anonymes et ne sont pas conservées. Elles sont utilisées uniquement pour l'entraînement de l'Intelligence Artificielle (<a href='https://openai.com/'>ChatGPT / OpenAI</a>). Les données sont supprimées à la fin de chaque session.</span>",
+            content: confidentialiteContent,
             timestamp: Date.now(),
         });
         // Permet que les lien ne soient pas interprétés comme du texte simple
@@ -115,7 +151,7 @@ export default {
     const aPropos = () => {
         messages.value.push({
             role: "bot",
-            content: "<span id='a-propos'>Ce chatbot est réalisé par <a href='https://artybot.fr'>Artybot</a>. Pour nous <a href='mailto:caroline.rosnet@upculture.fr'>contacter 💌</a></span>",
+            content: aProposContent,
             timestamp: Date.now(),
         });
         // Permet que les lien ne soient pas interprétés comme du texte simple
@@ -168,7 +204,7 @@ export default {
                 messages: [
                 {
                     role: "system",
-                    content: `${props.Prompt}`,
+                    content: `${prompt}`,
                 },
                 { 
                   role: "user",
