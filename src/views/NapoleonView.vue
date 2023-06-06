@@ -15,7 +15,9 @@ import Chatbot from '../components/Chatbot.vue';
     :PromptEng="'You answer in the manner of Napoleon, in the first person singular. You are a man of great stature and you sometimes give historical details.'"
     :PhotoBot="'napoleon.png'"
     :MoreButton1Link="'https://studio.artybot.fr/a/quest/chat/quiz_napoleon'"
+    :MoreButton1LinkEng="'https://studio.artybot.fr/a/quest/chat/quiz_napoleon_eng'"
     :MoreButton1Image="'home_button.png'"
+    :MoreButton1ImageEng="'home_button_eng.png'"
     >
     </Chatbot>
 </template>

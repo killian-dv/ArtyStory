@@ -46,7 +46,15 @@ export default {
       type: String,
       required: false
     },
+    MoreButton1LinkEng: {
+      type: String,
+      required: false
+    },
     MoreButton1Image: {
+      type: String,
+      required: false
+    },
+    MoreButton1ImageEng: {
       type: String,
       required: false
     }
@@ -61,6 +69,14 @@ export default {
     let prompt = props.Prompt;
     let confidentialiteContent = "<span id='confidentilite'>Les données collectées par ce chatbot sont anonymes et ne sont pas conservées. Elles sont utilisées uniquement pour l'entraînement de l'Intelligence Artificielle (<a href='https://openai.com/'>ChatGPT / OpenAI</a>). Les données sont supprimées à la fin de chaque session.</span>";
     let aProposContent = "<span id='a-propos'>Ce chatbot est réalisé par <a href='https://artybot.fr'>Artybot</a>. Pour nous <a href='mailto:caroline.rosnet@upculture.fr'>contacter 💌</a></span>";
+    let placeholderInput = "Posez votre question"
+    let Button1Link = "";
+    let Button1Image = "";
+    if (props.MoreButton1Link !== undefined) {
+      Button1Link = props.MoreButton1Link;
+      Button1Image = props.MoreButton1Image;
+    }
+    let confidentialiteImage = "cadenas.png";
 
     if (userLanguage && userLanguage !== "fr-FR") {
       premierMessage = props.PremierMessageEng;
@@ -69,6 +85,10 @@ export default {
       prompt = props.PromptEng;
       confidentialiteContent = "<span id='confidentilite'>The data collected by this chatbot is anonymous and is not stored. It is used only for the training of Artificial Intelligence (<a href='https://openai.com/'>ChatGPT / OpenAI</a>). The data is deleted at the end of each session.</span>";
       aProposContent = "<span id='a-propos'>This chatbot is made by <a href='https://artybot.fr'>Artybot</a>. To <a href='mailto:caroline.rosnet@upculture.fr'>contact us 💌</a></span>";
+      placeholderInput = "Ask your question"
+      Button1Link = props.MoreButton1LinkEng;
+      Button1Image = props.MoreButton1ImageEng;
+      confidentialiteImage = "cadenas_eng.png";
     }
 
 
@@ -76,12 +96,7 @@ export default {
     const messageInput = ref("");
     const messageInputBeforeDelete = ref("");
     const isApiResponding = ref(false);
-    let Button1Link = ""; // Déclarer les variables en dehors du bloc if
-    let Button1Image = "";
-    if (props.MoreButton1Link !== undefined) {
-      Button1Link = props.MoreButton1Link;
-      Button1Image = props.MoreButton1Image;
-    }
+    
     
     // Permet de créer un tableau de messages et d'y mettre le premier message
     const messages = ref([
@@ -244,7 +259,9 @@ export default {
       isApiResponding,
       getImageUrl,
       Button1Link,
-      Button1Image
+      Button1Image,
+      placeholderInput,
+      confidentialiteImage
     };
   },
 };
@@ -272,12 +289,12 @@ export default {
       </div>
       <div class="sc-bottom">
         <div class="sc-user-input">
-          <input v-model="messageInput" @keyup.enter="sendMessage" placeholder="Posez votre question"/>
+          <input v-model="messageInput" @keyup.enter="sendMessage" :placeholder="placeholderInput"/>
           <button @click="sendMessage"><img src="../assets/send.png" alt="send"></button>
         </div>
         <div class="sc-menu">
-          <a v-if="MoreButton1Link !== undefined" :href="`${MoreButton1Link}`"><img :src="getImageUrl(`${MoreButton1Image}`)" alt="home" /></a>
-          <a @click="confidentialite" href="#"><img src="../assets/cadenas.png" alt="cadenas" /></a>
+          <a v-if="MoreButton1Link !== undefined" :href="`${Button1Link}`"><img :src="getImageUrl(`${Button1Image}`)" alt="home" /></a>
+          <a @click="confidentialite" href="#"><img :src="getImageUrl(`${confidentialiteImage}`)" alt="cadenas" /></a>
           <a @click="aPropos" href="#"><img src="../assets/artychaud.png" alt="artychaud" /></a>
         </div>
       </div>
@@ -447,6 +464,10 @@ export default {
   background-color: white;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
+}
+.sc-menu a {
+  display: flex;
+  align-items: center;
 }
 .sc-menu a img {
   height: 45px;
