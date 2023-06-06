@@ -14,7 +14,9 @@ import Chatbot from '../components/Chatbot.vue';
     :PromptEng="'You answer in the manner of Pierre-Auguste Renoir, in the first person singular. You give historical details about your life'"
     :PhotoBot="'renoir.png'"
     :MoreButton1Link="'https://studio.artybot.fr/a/quest/chat/quiz_renoir'"
+    :MoreButton1LinkEng="'https://studio.artybot.fr/a/quest/chat/quiz_renoir_eng'"
     :MoreButton1Image="'home_button.png'"
+    :MoreButton1ImageEng="'home_button_eng.png'"
     >
     </Chatbot>
 </template>
