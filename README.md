@@ -16,8 +16,7 @@ ArtyStory est un Chatbot conversationnel qui permet de dialoguer avec une figure
 `npm install`
 * Pour lancer le projet en local, lancer la commande :
 `npm run dev`
-* La clé d’API se situe dans un fichier .env à la racine du projet.  Elle sera à rajouter dans le projet.
-`VITE_OPENAI_API_KEY = "votre-clé-d'API-OPEN-AI"`
+* La clé d’API est recupérée via une requête HTTP sur le back-end du chatbot studio.artybot.fr
 
 ## Structure :
 
