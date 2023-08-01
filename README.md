@@ -32,6 +32,7 @@ ArtyStory est un Chatbot conversationnel qui permet de dialoguer avec une figure
 ## Déploiement :
 
 **Déploiement automatique**
+
 Cette méthode utilise une GitHub Action pour compiler et déployer les fichiers de la branche main sur le serveur. Pour cela, il suffit juste de faire un push sur la branche `main`.
 
     git add .
