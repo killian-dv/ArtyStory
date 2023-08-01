@@ -19,6 +19,11 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Set up environment variables
+        env:
+          VITE_OPENAI_API_KEY: ${{ secrets.VITE_OPENAI_API_KEY }}
+        run: echo "VITE_OPENAI_API_KEY=$VITE_OPENAI_API_KEY" >> $GITHUB_ENV
+
       - name: FTP Deploy
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:

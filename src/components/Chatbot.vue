@@ -195,14 +195,14 @@ export default {
             content: "",
             timestamp: Date.now(),
         });
-        const openaiApiKey = await axios.get(
-          "https://studio.artybot.fr/api/nlp/histo",
-          {
-            headers: {
-              ContentType: "application/json",
-            },
-          }
-        );
+        // const openaiApiKey = await axios.get(
+        //   "https://studio.artybot.fr/api/nlp/histo",
+        //   {
+        //     headers: {
+        //       ContentType: "application/json",
+        //     },
+        //   }
+        // );
         try {
             // On affiche le typing
             isApiResponding.value = true;
@@ -229,7 +229,7 @@ export default {
             },
             {
                 headers: {
-                Authorization: `Bearer ${openaiApiKey.data}`,
+                Authorization: `Bearer ${import.meta.env.VITE_OPENAI_API_KEY}`,
                 "Content-Type": "application/json",
                 },
             }
