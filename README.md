@@ -17,6 +17,7 @@ ArtyStory est un Chatbot conversationnel qui permet de dialoguer avec une figure
 * Pour lancer le projet en local, lancer la commande :
 `npm run dev`
 * La clé d’API est stockée dans un GitHub Secrets en production.
+* La clé d'API est noté sur le coda
 
 ## Structure :
 
