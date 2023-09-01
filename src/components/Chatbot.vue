@@ -91,6 +91,7 @@ export default {
       confidentialiteImage = "cadenas_eng.png";
     }
 
+    console.log(import.meta.env.VITE_OPENAI_API_KEY)
 
     // Déclaration des variables
     const messageInput = ref("");
